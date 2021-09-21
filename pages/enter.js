@@ -24,11 +24,9 @@ function SignInButton() {
 }
 
 function SignOutButton() {
-  return (
-    <button className='btn-google' onClick={() => auth.signOut}>
-      Sign Out
-    </button>
-  );
+  return <button onClick={() => auth.signOut()}>Sign Out</button>;
 }
 
-function UsernameForm() {}
+function UsernameForm() {
+  return <></>;
+}

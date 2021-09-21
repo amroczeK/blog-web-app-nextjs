@@ -1,21 +1,32 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
-import Loader from '../components/Loader';
+import { auth, googleAuthProvider } from '../lib/firebase';
+import { useContext } from 'react';
+import { UserContext } from '../lib/context';
 
-export default function Home() {
+export default function Home(props) {
+  const { user, username } = useContext(UserContext);
+
+  // 1. user signed out <SignInButton/>
+  // 2. user signed in, but missing username <UsernameForm/>
+  // 3. user signed in, has username <SignOutButton/>
+  return <main>{user ? !username ? <UsernameForm /> : <SignOutButton /> : <SignInButton />}</main>;
+}
+
+function SignInButton() {
+  const signInWithGoogle = async () => {
+    await auth.signInWithPopup(googleAuthProvider).catch(console.error);
+  };
+
   return (
-    <div>
-      <Link
-        prefetch={false}
-        href={{
-          pathname: '/[username]',
-          query: { username: 'jeffd23' },
-        }}
-      >
-        <a href='Jeff'>Jeff's Profile</a>
-      </Link>
-      <Loader show/>
-    </div>
+    <button className='btn-google' onClick={signInWithGoogle}>
+      <img src={'/google.png'} /> Sign in with Google
+    </button>
   );
+}
+
+function SignOutButton() {
+  return <button onClick={() => auth.signOut()}>Sign Out</button>;
+}
+
+function UsernameForm() {
+  return <></>;
 }
