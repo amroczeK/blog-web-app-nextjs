@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from '../lib/firebase';
+import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { useContext, useState, useCallback, useEffect } from 'react';
 import { UserContext } from '../lib/context';
 import debounce from 'lodash.debounce';
@@ -9,7 +9,12 @@ export default function Enter(props) {
   // 1. user signed out <SignInButton/>
   // 2. user signed in, but missing username <UsernameForm/>
   // 3. user signed in, has username <SignOutButton/>
-  return <main>{user ? !username ? <UsernameForm /> : <SignOutButton /> : <SignInButton />}</main>;
+  return (
+    <main>
+      <meta title='Enter' description='Sign up for this amazing app!' />
+      {user ? !username ? <UsernameForm /> : <SignOutButton /> : <SignInButton />}
+    </main>
+  );
 }
 
 function SignInButton() {
@@ -54,7 +59,7 @@ function UsernameForm() {
 
       await batch.commit();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
