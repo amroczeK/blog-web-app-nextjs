@@ -1,3 +1,4 @@
+import Metatags from "../../components/Metatags";
 import UserProfile from "../../components/UserProfile";
 import PostFeed from "../../components/PostFeed";
 import { getUserWithUsername, postToJSON } from "../../lib/helpers";
@@ -8,10 +9,10 @@ export async function getServerSideProps({ query }) {
   const userDoc = await getUserWithUsername(username);
 
   // If no user, short circuit function to 404 page
-  if(!userDoc){
+  if (!userDoc) {
     return {
       notFound: true,
-    }
+    };
   }
 
   // JSON serializable data
@@ -37,6 +38,7 @@ export async function getServerSideProps({ query }) {
 export default function UsersPage({ user, posts }) {
   return (
     <main>
+      <Metatags title={`${user.username} page`} />
       <UserProfile user={user} />
       <PostFeed posts={posts} />
     </main>

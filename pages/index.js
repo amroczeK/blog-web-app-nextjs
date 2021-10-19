@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Metatags from "../components/Metatags";
 import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
 import {
@@ -48,6 +49,7 @@ export default function Home(props) {
 
   return (
     <main>
+      <Metatags title={`Posts feed`} />
       <PostFeed posts={posts} />
       {!loading && !postsEnd && (
         <button onClick={getMorePosts}>Load more</button>
