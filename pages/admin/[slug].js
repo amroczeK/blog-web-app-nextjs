@@ -33,8 +33,6 @@ function PostManager() {
     .doc(slug);
   const [post] = useDocumentData(postRef);
 
-  console.log("post", post)
-
   return (
     <main className={styles.container}>
       {post && (
