@@ -10,7 +10,9 @@ export default function PostFeed({ posts, admin }) {
 }
 
 function PostItem({ post, admin = false }) {
+  console.log(post)
   const wordCount = post?.content.trim().split(/\s+/g).length;
+  console.log("HERE")
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
   return (
